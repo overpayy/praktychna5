@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
+bool hasDuplicateLetters(const std::string& word) {
+    std::unordered_set<char> letters;
+
+    for (char letter : word) {
+        if (letters.find(letter) != letters.end()) {
+            return true; 
+        }
+        letters.insert(letter);
+    }
+
+    return false;
+}
+
+int main() {
+    std::string word;
+
+    std::cout << "Enter a word: ";
+    std::cin >> word;
+
+    bool hasDuplicates = hasDuplicateLetters(word);
+
+    if (hasDuplicates) {
+        std::cout << "The word contains duplicate letters." << std::endl;
+    }
+    else {
+        std::cout << "The word does not contain duplicate letters." << std::endl;
+    }
+
+    return 0;
+}
