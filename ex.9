@@ -1,0 +1,51 @@
+#include <iostream>
+#include <unordered_set>
+
+int main() {
+    int M, N;
+    std::cout << "Enter the dimensions of the array (M і N): ";
+    std::cin >> M >> N;
+
+    // Створення динамічного масиву
+    int** mas = new int* [M];
+    for (int i = 0; i < M; i++) {
+        mas[i] = new int[N];
+    }
+
+    // Введення елементів масиву
+    std::cout << "Enter the elements of the array:" << std::endl;
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            std::cin >> mas[i][j];
+        }
+    }
+
+    // Знаходження суми елементів, які не повторюються для кожного стовпця
+    int* sums = new int[N];
+    for (int j = 0; j < N; j++) {
+        std::unordered_set<int> uniqueElements;
+        int sum = 0;
+        for (int i = 0; i < M; i++) {
+            if (uniqueElements.count(mas[i][j]) == 0) {
+                sum += mas[i][j];
+                uniqueElements.insert(mas[i][j]);
+            }
+        }
+        sums[j] = sum;
+    }
+
+    // Виведення результатів
+    std::cout << "Sums of non-repeating elements for each column:" << std::endl;
+    for (int j = 0; j < N; j++) {
+        std::cout << "column " << j << ": " << sums[j] << std::endl;
+    }
+
+    // Звільнення пам'яті, виділеної для масиву та сум
+    for (int i = 0; i < M; i++) {
+        delete[] mas[i];
+    }
+    delete[] mas;
+    delete[] sums;
+
+    return 0;
+}
