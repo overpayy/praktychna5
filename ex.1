@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cmath>
+
+// Функція для обчислення середнього значення
+double obchyslitSeredne(double* mas, int rozmir) {
+    double suma = 0;
+    for (int i = 0; i < rozmir; i++) {
+        suma += mas[i];
+    }
+    return suma / rozmir;
+}
+
+// Функція для обчислення дисперсії
+double obchyslitDispersiyu(double* mas, int rozmir, double seredne) {
+    double sumaKvadrativ = 0;
+    for (int i = 0; i < rozmir; i++) {
+        sumaKvadrativ += pow(mas[i] - seredne, 2);
+    }
+    return sumaKvadrativ / rozmir;
+}
+
+// Функція для обчислення відносного середньоквадратичного відхилення
+double obchyslitVidnosneVidhilennya(double dispersiya, double seredne) {
+    return sqrt(dispersiya) / seredne;
+}
+
+int main() {
+    int rozmir;
+    std::cout << "Enter the size of the array: ";
+    std::cin >> rozmir;
+
+    // Створення динамічного масиву
+    double* mas = new double[rozmir];
+
+    // Введення елементів масиву
+    std::cout << "Enter the elements of the array: ";
+    for (int i = 0; i < rozmir; i++) {
+        std::cin >> mas[i];
+    }
+
+    // Обчислення середнього значення
+    double seredne = obchyslitSeredne(mas, rozmir);
+
+    // Обчислення дисперсії
+    double dispersiya = obchyslitDispersiyu(mas, rozmir, seredne);
+
+    // Обчислення відносного середньоквадратичного відхилення
+    double vidhilennya = obchyslitVidnosneVidhilennya(dispersiya, seredne);
+
+    // Виведення результатів
+    std::cout << "Average value: " << seredne << std::endl;
+    std::cout << "Dispersion: " << dispersiya << std::endl;
+    std::cout << "Relative standard deviation: " << vidhilennya << std::endl;
+
+    // Звільнення пам'яті, виділеної для масиву
+    delete[] mas;
+
+    return 0;
+}
